@@ -1,80 +1,67 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Menu, X } from "lucide-react";
 
-export default function NavBar() {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const navItems = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "#" },
+    { label: "Products", href: "/products" },
+    { label: "Contact", href: "#" },
+  ];
 
   return (
-    <nav className="absolute top-0 right-0 md:left-8 lg:bottom-12 z-10  p-8">
-      {/* Desktop Navbar */}
-      <div className="hidden lg:flex  h-full items-end">
-        <ul className="flex flex-col gap-4 text-2xl font-medium text-black">
-          <li className="hover:font-bold transition-all duration-300">
-            <a href="#">home</a>
-          </li>
-          <li className="hover:font-bold transition-all duration-300">
-            <a href="#">about</a>
-          </li>
-          <li className="hover:font-bold transition-all duration-300">
-            <a href="#">products</a>
-          </li>
-          <li className="hover:font-bold transition-all duration-300">
-            <a href="#">contact</a>
-          </li>
-        </ul>
+    <nav className="  top-0 left-0 right-0 bg-black shadow-sm z-50">
+      <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-end items-center h-16">
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="flex space-x-8">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-gray-200 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-gray-100"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 transition-colors duration-200"
+            >
+              {isOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Mobile Navbar */}
-      <div className="lg:hidden">
-        <button onClick={toggleMenu} className="text-black focus:outline-none">
-          <svg
-            className="w-8 h-8"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {isOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            )}
-          </svg>
-        </button>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="absolute right-12 top-16 w-fit bg-black rounded-lg p-4 shadow-lg">
-            <ul className="flex flex-col gap-4 text-2xl text-white">
-              <li className="hover:scale-105 transition-all duration-300">
-                <a href="#">Home</a>
-              </li>
-              <li className="hover:scale-105 transition-all duration-300">
-                <a href="#">About</a>
-              </li>
-              <li className="hover:scale-105 transition-all duration-300">
-                <a href="#">Products</a>
-              </li>
-              <li className="hover:scale-105 transition-all duration-300">
-                <a href="#">Contact</a>
-              </li>
-            </ul>
-          </div>
-        )}
+      {/* Mobile menu */}
+      <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg">
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;

@@ -1,6 +1,6 @@
 import { useTransform, motion, MotionValue } from "framer-motion";
 import Image from "next/image";
-import NavBar from "../Navbar";
+import MainPageNavBar from "../MainPageNavBar";
 
 export default function Hero({
   scrollYProgress,
@@ -12,9 +12,9 @@ export default function Hero({
   return (
     <motion.div
       style={{ scale, rotate }}
-      className="sticky top-0 flex items-center justify-center bg-[var(--primary)] h-screen "
+      className="sticky top-0 flex items-center justify-center bg-[var(--primary)] h-screen pb-[10vh]"
     >
-      <NavBar />
+      <MainPageNavBar />
       <motion.section
         initial={{ opacity: 0, scale: 0.1 }}
         animate={{ opacity: 1, scale: 1 }}

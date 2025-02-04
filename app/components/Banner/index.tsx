@@ -83,17 +83,19 @@ export default function Banner({
     <motion.div
       ref={bannerRef}
       style={{ scale, rotate }}
-      className="relative mb-32 w-full shadow-md h-screen flex items-center justify-center"
+      className="relative  w-full shadow-md  h-screen flex items-center justify-center"
     >
+      {/* background */}
       <Image
-        src="/banner-cover.png"
+        src="/banner-cover.jpg"
         alt="Banner art"
         fill
         className="max-w-full max-h-full"
       />
+      {/* logo */}
       <Image
         height={400}
-        className="absolute left-[56px] top-[56px]"
+        className="absolute left-0 top-[84px] w-full px-12 h-[80px] md:w-[500px] md:h-[100px] md:left-[56px] md:top-[56px]"
         width={400}
         src="/logo/yellow-no-bg.png"
         alt="Chair"

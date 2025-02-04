@@ -15,9 +15,13 @@ export default function MainProducts() {
       initial={{ opacity: 0, y: 200 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 1 }}
-      className="relative max-w-7xl  mx-auto"
+      className="relative max-w-7xl !text-white  mx-auto flex flex-col items-center"
     >
-      <h1 className="text-5xl font-semibold mb-8 text-center tracking-wide">
+      <h1
+        className="text-5xl p-6 w-fit font-semibold mb-8 text-center tracking-wide"
+        style={{ boxShadow: "0px 4px 3px -1px rgba(0, 0, 0, 0.1)" }}
+      >
+        {" "}
         lançamentos
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

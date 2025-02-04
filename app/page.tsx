@@ -27,15 +27,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-x-hidden bg-black">
       {/* container that tracks scroll */}
-      <main ref={container} className="relative bg-[var(--background)]">
-        <Hero scrollYProgress={scrollYProgress} />
-        <Banner scrollYProgress={scrollYProgress} />
+      <main ref={container} className="relative">
+        <div>
+          <Hero scrollYProgress={scrollYProgress} />
+          <Banner scrollYProgress={scrollYProgress} />
+        </div>
       </main>
 
       {/* container without scroll tracking */}
-      <div>
+      <div className="bg-black">
         <MainProducts />
         <Footer />
       </div>
