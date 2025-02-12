@@ -87,7 +87,7 @@ export default function Banner({
     >
       {/* background */}
       <Image
-        src="/banner-cover.jpg"
+        src="/banner-cover-2.jpg"
         alt="Banner art"
         fill
         className="max-w-full max-h-full"
@@ -101,17 +101,21 @@ export default function Banner({
         alt="Chair"
       />
       {/* Wrapper div for the chair and its shadow */}
-      <div className="absolute bottom-[48px]" ref={tiltRef} style={tiltStyle}>
+      <div
+        className="absolute bottom-[78px] left-[10%]"
+        ref={tiltRef}
+        style={tiltStyle}
+      >
         <div className="relative">
           <Image
             height={480}
-            className="drop-shadow-2xl"
+            className="drop-shadow-2xl scale-x-[-1]"
             width={480}
-            src="/banner-chair.png"
+            src="/chair-no-bg.png"
             alt="Chair"
           />
           {/* Shadow effect */}
-          <div className="absolute bottom-10 left-0 right-24 h-8 bg-black/30 blur-lg"></div>
+          <div className="absolute bottom-10 left-48 right-0 h-8 bg-black blur-lg"></div>
         </div>
       </div>
     </motion.div>

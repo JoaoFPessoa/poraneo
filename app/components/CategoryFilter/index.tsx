@@ -13,7 +13,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 }) => {
   return (
     <div className="w-full my-8">
-      <h2 className="text-xl font-semibold text-white mb-4">
+      <h2 className="text-xl font-semibold text-black mb-4">
         Filtrar por Categoria:
       </h2>
       <div className="flex flex-wrap gap-4">
