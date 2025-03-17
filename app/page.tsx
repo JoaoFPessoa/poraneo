@@ -6,6 +6,7 @@ import MainProducts from "./components/MainProducts";
 import { useScroll } from "framer-motion";
 import Lenis from "lenis";
 import Footer from "./components/Footer";
+import CTA from "./components/CTA";
 
 export default function Home() {
   const container = useRef(null);
@@ -39,6 +40,7 @@ export default function Home() {
       {/* container without scroll tracking */}
       <div className="bg-black">
         <MainProducts />
+        <CTA />
         <Footer />
       </div>
     </div>
