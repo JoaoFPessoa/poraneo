@@ -16,13 +16,13 @@ export default function MainPageNavBar() {
             <a href="#">home</a>
           </li>
           <li className="hover:font-bold transition-all duration-300">
-            <a href="#">about</a>
+            <a href="#">sobre</a>
           </li>
           <li className="hover:font-bold transition-all duration-300">
-            <a href="/products">products</a>
+            <a href="/products">produtos</a>
           </li>
           <li className="hover:font-bold transition-all duration-300">
-            <a href="#">contact</a>
+            <a href="#">contato</a>
           </li>
         </ul>
       </div>
@@ -63,13 +63,13 @@ export default function MainPageNavBar() {
                 <a href="#">Home</a>
               </li>
               <li className="hover:scale-105 transition-all duration-300">
-                <a href="#">About</a>
+                <a href="#">Sobre</a>
               </li>
               <li className="hover:scale-105 transition-all duration-300">
-                <a href="/products">Products</a>
+                <a href="/products">Produtos</a>
               </li>
               <li className="hover:scale-105 transition-all duration-300">
-                <a href="#">Contact</a>
+                <a href="#">Contato</a>
               </li>
             </ul>
           </div>
