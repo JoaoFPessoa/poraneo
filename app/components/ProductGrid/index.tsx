@@ -59,12 +59,12 @@ const ProductCard = ({
     >
       <Link href={`/products/${product.id}`}>
         <div
-          className="relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 shadow-xl hover:border-primary transition-all duration-500"
+          className="relative overflow-hidden h-[600px] bg-white/5 border border-white/10 shadow-xl hover:border-primary transition-all duration-500"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Image Container */}
-          <div className="relative h-80 overflow-hidden">
+          <div className="relative h-full overflow-hidden">
             <Image
               src={product.image || "/placeholder.svg"}
               alt={product.name}
@@ -79,7 +79,6 @@ const ProductCard = ({
                 isHovered ? "opacity-100" : "opacity-60"
               }`}
             />
-
 
             {/* Category Badge */}
             <div className="absolute top-4 left-4">
