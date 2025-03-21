@@ -25,7 +25,7 @@ export function AnimatedProductCard({
 
   return (
     <Card
-      className="w-full max-w-sm mx-auto transition-all duration-300 ease-in-out transform hover:shadow-lg"
+      className="w-full mt-24 max-w-sm mx-auto transition-all duration-300 ease-in-out transform hover:shadow-lg"
       style={{
         transform: isHovered ? "translateY(-5px)" : "translateY(0)",
         backgroundColor: isHovered ? "var(--card-hovered)" : "var(--card)",

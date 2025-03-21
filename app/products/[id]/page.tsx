@@ -169,7 +169,7 @@ export default function ProductDetailPage() {
                   alt={product.name}
                   layout="fill"
                   objectFit="cover"
-                  className="rounded-2xl transition hover:scale-105 duration-700"
+                  className=" transition hover:scale-105 duration-700"
                 />
               </motion.div>
             </div>
@@ -303,7 +303,7 @@ export default function ProductDetailPage() {
                 viewport={{ once: true }}
                 className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-primary/50 transition group"
               >
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-primary/20 mb-6">
+                <div className="w-16 h-16 flex items-center justify-center rounded-full  mb-6">
                   <svg
                     className="w-8 h-8 text-primary"
                     fill="none"
