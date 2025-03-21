@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 // Tipos
 interface Project {
@@ -173,6 +174,7 @@ export default function ProjectsPage() {
           </Link>
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 }
