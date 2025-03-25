@@ -8,10 +8,9 @@ import Lenis from "lenis";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { client } from "@/sanity/lib/client";
-import { SanityDocument } from "next-sanity";
 
 // Types
-interface BlogPost {
+export interface BlogPost {
   _id: string;
   slug: {
     current: string;
@@ -43,13 +42,9 @@ const POSTS_QUERY = `*[
 const options = { next: { revalidate: 30 } };
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<SanityDocument[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   async function handleGetPosts() {
-    const response = await client.fetch<SanityDocument[]>(
-      POSTS_QUERY,
-      {},
-      options
-    );
+    const response = await client.fetch<BlogPost[]>(POSTS_QUERY, {}, options);
     setPosts(response);
   }
 
@@ -116,7 +111,7 @@ export default function BlogPage() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
           >
             {posts.map((post, index) => (
-              <BlogPostCard key={post.id} post={post} index={index} />
+              <BlogPostCard key={post._id} post={post} index={index} />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -211,9 +206,6 @@ const BlogPostCard: React.FC<{ post: BlogPost; index: number }> = ({
                   isHovered ? "max-h-40 opacity-100 mt-3" : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="text-gray-300 line-clamp-3 mb-5 text-sm font-light">
-                  DASAS
-                </p>
                 <div className="relative group overflow-hidden inline-flex items-center gap-3">
                   <span className="text-amber-300 text-sm uppercase tracking-wider font-light">
                     Ler Artigo
