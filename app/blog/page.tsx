@@ -43,6 +43,7 @@ const options = { next: { revalidate: 30 } };
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
+
   async function handleGetPosts() {
     const response = await client.fetch<BlogPost[]>(POSTS_QUERY, {}, options);
     setPosts(response);
@@ -62,7 +63,6 @@ export default function BlogPage() {
     requestAnimationFrame(raf);
   }, []);
 
-  console.log({ posts });
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
