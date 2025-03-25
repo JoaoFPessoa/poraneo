@@ -27,6 +27,9 @@ export default function MainPageNavBar() {
           <li className="hover:font-bold transition-all duration-300">
             <a href="#">contato</a>
           </li>
+          <li className="hover:font-bold transition-all duration-300">
+            <a href="/blog">blog</a>
+          </li>
         </ul>
       </div>
 
