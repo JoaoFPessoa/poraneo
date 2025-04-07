@@ -116,7 +116,7 @@ export default function ProductDetailPage() {
           </motion.div>
         </motion.div>
 
-        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center">
+        <div className="absolute bottom-36 left-0 right-0 z-20 flex justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -203,11 +203,10 @@ export default function ProductDetailPage() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="flex flex-col justify-center"
+            className="flex flex-col justify-start"
           >
             <div className="space-y-6">
               <div>
-                <h2 className="text-3xl font-bold mb-4">Sobre o Produto</h2>
                 <p className="text-xl text-gray-300 leading-relaxed">
                   {product.description}
                 </p>
