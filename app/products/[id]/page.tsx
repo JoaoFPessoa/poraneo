@@ -64,7 +64,7 @@ export default function ProductDetailPage() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="relative z-20 container mx-auto px-6 h-full flex flex-col justify-center"
+          className="relative z-20 container max-w-7xl mx-auto px-6 h-full flex flex-col justify-center"
         >
           <motion.span
             initial={{ opacity: 0, x: -30 }}
