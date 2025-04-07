@@ -1,52 +1,10 @@
 "use client";
-import { MotionValue, motion, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
 
-export default function Banner({
-  scrollYProgress,
-}: {
-  scrollYProgress: MotionValue<number>;
-}) {
-  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-5, 0]);
-  const bannerRef = useRef<HTMLDivElement>(null);
-
-  // Intersection Observer logic
-  useEffect(() => {
-    const bannerElement = bannerRef.current;
-    if (!bannerElement) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            // Scroll to the top of the banner element
-            bannerElement.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        });
-      },
-      {
-        threshold: 0.2, // Trigger when 60% of the element is visible
-      }
-    );
-
-    observer.observe(bannerElement);
-
-    return () => {
-      observer.unobserve(bannerElement);
-    };
-  }, []);
-
+export default function Banner({}) {
   return (
-    <motion.div
-      ref={bannerRef}
-      style={{ scale, rotate }}
-      className="relative  w-full shadow-md  h-screen flex items-center justify-center"
-    >
+    <motion.div className="relative  w-full shadow-md  h-screen flex items-center justify-center">
       {/* background */}
       <Image
         src="/banner-cover-2.jpg"

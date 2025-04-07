@@ -283,71 +283,10 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Seção de Características Destacadas */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-32"
-        >
-          <h2 className="text-4xl font-bold text-center mb-16">
-            Características Destacadas
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-primary/50 transition group"
-              >
-                <div className="w-16 h-16 flex items-center justify-center rounded-full  mb-6">
-                  <svg
-                    className="w-8 h-8 text-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d={
-                        ["M5 13l4 4L19 7", "M12 6v6l4 2", "M20 7v7m-7-7H6"][
-                          index % 3
-                        ]
-                      }
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition">
-                  {
-                    [
-                      "Qualidade Superior",
-                      "Tecnologia Avançada",
-                      "Suporte Especializado",
-                    ][index % 3]
-                  }
-                </h3>
-                <p className="text-gray-300">
-                  {
-                    [
-                      "Nossos produtos são fabricados com materiais de alta qualidade, garantindo durabilidade e desempenho superior.",
-                      "Utilizamos as mais recentes tecnologias para oferecer produtos inovadores e eficientes.",
-                      "Nossa equipe de suporte está sempre disponível para ajudar com qualquer dúvida ou necessidade.",
-                    ][index % 3]
-                  }
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </main>
 
       {/* CTA Final */}
-      <div className="relative py-32 mt-32 overflow-hidden">
+      {/* <div className="relative py-32 mt-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-green-900/20 to-black z-0" />
         <div
           className="absolute inset-0 z-0 opacity-30"
@@ -380,7 +319,7 @@ export default function ProductDetailPage() {
             </button>
           </motion.div>
         </div>
-      </div>
+      </div> */}
 
       <Footer />
     </div>
