@@ -1,20 +1,72 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import Image from "next/image";
 import Footer from "../../components/Footer";
-import { productsMock } from "@/data/productsMock";
 import Navbar from "@/app/components/Navbar";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { client } from "@/sanity/lib/client";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import imageUrlBuilder from "@sanity/image-url";
 
-export default function ProductDetailPage() {
-  const params = useParams();
-  const productId = Number(params.id);
-  const product = productsMock.find((p) => p.id === productId);
+interface Product {
+  _id: string;
+  _createdAt: string;
+  name: string;
+  slug: {
+    _type: "slug";
+    current: string;
+  };
+  image?: {
+    _type: "image";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  };
+  description?: string;
+  additionalInfo?: string;
+  collection?: string;
+  technicalDescription?: string;
+  dimensions?: string;
+  specifications?: string;
+  extra_images?: {
+    _type: "image";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  }[];
+}
+
+export default function ProductDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isSpecsOpen, setIsSpecsOpen] = useState(false);
+
+  const [product, setProduct] = useState<Product | null>(null);
+
+  async function getProductBySlug(slug: string) {
+    const query = `*[_type == "product" && slug.current == $slug][0]`;
+    const response = await client.fetch(query, { slug });
+    return response;
+  }
+
+  const { projectId, dataset } = client.config();
+  const urlFor = (source: SanityImageSource) =>
+    projectId && dataset
+      ? imageUrlBuilder({ projectId, dataset }).image(source)
+      : null;
+
+  useEffect(() => {
+    getProductBySlug(params.slug).then((data) => {
+      setProduct(data);
+    });
+  }, [params.slug]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +91,7 @@ export default function ProductDetailPage() {
     );
   }
 
-  const allImages = [product.image, ...product.extraImages].filter(Boolean);
+  const allImages = [...(product.extra_images ?? [])].filter(Boolean);
 
   return (
     <div className="bg-black text-white min-h-screen">
@@ -50,7 +102,10 @@ export default function ProductDetailPage() {
         <div
           className="absolute inset-0 z-0 opacity-60"
           style={{
-            backgroundImage: `url(${product.image})`,
+            backgroundImage: `url(${urlFor(product.image || "")
+              ?.width(1200)
+              .quality(100)
+              .url()})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "blur(8px)",
@@ -72,7 +127,7 @@ export default function ProductDetailPage() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="inline-block w-fit bg-white/10 backdrop-blur-md text-white px-4 py-1 rounded-full text-sm font-medium mb-4 border border-white/20"
           >
-            {product.category}
+            {product.collection}
           </motion.span>
 
           <motion.h1
@@ -84,15 +139,6 @@ export default function ProductDetailPage() {
             {product.name}
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-            className="text-4xl font-bold text-primary mt-4"
-          >
-            {product.price}
-          </motion.p>
-
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -100,7 +146,7 @@ export default function ProductDetailPage() {
             className="mt-8 flex gap-4"
           >
             <button className="bg-white text-black py-4 px-8 rounded-full text-xl font-semibold hover:bg-gray-200 transition group">
-              Faça um orçamento
+              entre em contato
               <span className="ml-2 inline-block transition group-hover:translate-x-1">
                 →
               </span>
@@ -111,7 +157,7 @@ export default function ProductDetailPage() {
               }
               className="bg-transparent border border-white/30 backdrop-blur-sm py-4 px-8 rounded-full text-xl font-semibold hover:bg-white/10 transition"
             >
-              Detalhes
+              detalhes
             </button>
           </motion.div>
         </motion.div>
@@ -165,11 +211,21 @@ export default function ProductDetailPage() {
                 className="w-full h-full relative"
               >
                 <Image
-                  src={allImages[activeImageIndex] || "/placeholder.svg"}
+                  src={
+                    allImages[activeImageIndex]
+                      ? (urlFor(allImages[activeImageIndex])
+                          ?.width(550)
+                          .dpr(2)
+                          .height(310)
+                          .quality(100)
+                          .url() ?? "/placeholder.svg")
+                      : "/placeholder.svg"
+                  }
                   alt={product.name}
                   layout="fill"
                   objectFit="cover"
-                  className=" transition hover:scale-105 duration-700"
+                  className="transition hover:scale-105 duration-700"
+                  quality={100}
                 />
               </motion.div>
             </div>
@@ -186,11 +242,15 @@ export default function ProductDetailPage() {
                   onClick={() => setActiveImageIndex(index)}
                 >
                   <Image
-                    src={img || "/placeholder.svg"}
+                    src={
+                      urlFor(img)?.width(500).height(500).quality(100).url() ??
+                      "/placeholder.svg"
+                    }
                     alt={`${product.name} thumbnail ${index + 1}`}
                     layout="fill"
                     objectFit="cover"
                     className="rounded-lg hover:opacity-80 transition"
+                    quality={100}
                   />
                 </div>
               ))}
@@ -235,12 +295,7 @@ export default function ProductDetailPage() {
                 <div className="pt-6 border-t border-white/10 mt-6">
                   <h3 className="text-2xl font-bold mb-4">Especificações</h3>
                   <ul className="space-y-2 text-lg text-gray-300">
-                    {product.specifications.map((spec, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-primary mr-2">•</span>
-                        {spec}
-                      </li>
-                    ))}
+                    {product.specifications}
                   </ul>
                 </div>
               </motion.div>

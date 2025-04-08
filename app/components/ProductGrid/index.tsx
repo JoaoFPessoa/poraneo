@@ -1,22 +1,55 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type React from "react";
-import { productsMock } from "@/data/productsMock";
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "@/app/types/product";
+import { client } from "@/sanity/lib/client";
+
+type Product = {
+  _id: string;
+  name: string;
+  imageUrl: string;
+  description: string;
+  price?: string;
+  slug: { current: string };
+};
+
+const getProductsQuery = `
+  *[_type == "product"]{
+    _id,
+    name,
+    image,
+    description,
+    "imageUrl": image.asset->url,
+    price,
+    slug
+  }
+`;
 
 const ProductGrid = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await client.fetch(
+        getProductsQuery,
+        {},
+        { next: { revalidate: 30 } }
+      );
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
-    <>
-      <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        {productsMock.map((product, index) => (
-          <ProductCard key={product.id} product={product} index={index} />
-        ))}
-      </div>
-    </>
+    <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+      {products.map((product, index) => (
+        <ProductCard key={product._id} product={product} index={index} />
+      ))}
+    </div>
   );
 };
 
@@ -36,7 +69,7 @@ const ProductCard = ({
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group"
     >
-      <Link href={`/products/${product.id}`}>
+      <Link href={`/products/${product.slug.current}`}>
         <div
           className="relative overflow-hidden h-[600px] bg-white/5 border border-white/10 shadow-xl hover:border-primary transition-all duration-500"
           onMouseEnter={() => setIsHovered(true)}
@@ -45,7 +78,7 @@ const ProductCard = ({
           {/* Image Container */}
           <div className="relative h-full overflow-hidden">
             <Image
-              src={product.image || "/placeholder.svg"}
+              src={product.imageUrl || "/placeholder.svg"}
               alt={product.name}
               layout="fill"
               objectFit="cover"

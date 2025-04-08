@@ -20,6 +20,12 @@ export default function Home() {
     requestAnimationFrame(raf);
   }, []);
 
+  console.log("ENV SANITY:", {
+    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+    version: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
+  });
+
   return (
     <div className="overflow-x-hidden bg-black">
       {/* container that tracks scroll */}
