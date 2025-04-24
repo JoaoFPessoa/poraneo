@@ -5,7 +5,7 @@ import { useState } from "react";
 import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "@/app/products/page";
+import { Product } from "@/app/collections/page";
 
 interface Props {
   products: Product[];
