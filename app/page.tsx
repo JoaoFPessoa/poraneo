@@ -2,19 +2,11 @@
 import { useEffect, useRef } from "react";
 import Banner from "./components/Banner";
 import Hero from "./components/Hero";
-import MainProducts from "./components/MainProducts";
-import { useScroll } from "framer-motion";
 import Lenis from "lenis";
 import Footer from "./components/Footer";
-import CTA from "./components/CTA";
 
 export default function Home() {
   const container = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start start", "end end"],
-  });
 
   // smooth scroll
   useEffect(() => {
@@ -28,19 +20,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="overflow-x-hidden bg-black">
+    <div className="overflow-x-hidden ">
       {/* container that tracks scroll */}
       <main ref={container} className="relative">
         <div>
-          <Hero scrollYProgress={scrollYProgress} />
-          <Banner scrollYProgress={scrollYProgress} />
+          <Hero />
+          <Banner />
         </div>
       </main>
 
       {/* container without scroll tracking */}
-      <div className="bg-black">
-        <MainProducts />
-        <CTA />
+      <div className="">
         <Footer />
       </div>
     </div>

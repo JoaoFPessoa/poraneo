@@ -5,16 +5,16 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Sobre", href: "#" },
-    { label: "Projetos", href: "/projects" },
-    { label: "Produtos", href: "/products" },
-    { label: "Contato", href: "#" },
-    { label: "Blog", href: "/blog" },
+    { label: "início", href: "/" },
+    { label: "projetos", href: "/projects" },
+    { label: "coleções", href: "/collections" },
+    { label: "produtos", href: "/products" },
+    { label: "sobre", href: "/about" },
+    { label: "contato", href: "/contact" },
   ];
 
   return (
-    <nav className="  top-0 left-0 right-0 bg-white shadow-sm z-50">
+    <nav className="  top-0 left-0 right-0  shadow-sm z-50">
       <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex justify-end items-center h-16">
           {/* Desktop Navigation */}
@@ -24,7 +24,7 @@ const Navbar = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-black hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-gray-100"
+                  className="text-black  px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:border-b hover:border-gray-900"
                 >
                   {item.label}
                 </a>

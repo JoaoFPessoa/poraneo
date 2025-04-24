@@ -1,68 +1,88 @@
 "use client";
-import { MotionValue, motion, useTransform } from "framer-motion";
+import React, { useState } from "react";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-export default function Banner({
-  scrollYProgress,
-}: {
-  scrollYProgress: MotionValue<number>;
-}) {
-  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-5, 0]);
-  const bannerRef = useRef<HTMLDivElement>(null);
+const Banner = () => {
+  const [hovered, setHovered] = useState<string | null>(null);
+  const router = useRouter();
 
-  // Intersection Observer logic
-  useEffect(() => {
-    const bannerElement = bannerRef.current;
-    if (!bannerElement) return;
+  const backgrounds: Record<string, string> = {
+    projetos: "/projects/expo-2-cover.jpg",
+    colecoes: "/carnan-chair/main.jpg",
+    produtos: "/carnan-chair/main.jpg",
+  };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            // Scroll to the top of the banner element
-            bannerElement.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        });
-      },
-      {
-        threshold: 0.2, // Trigger when 60% of the element is visible
-      }
-    );
-
-    observer.observe(bannerElement);
-
-    return () => {
-      observer.unobserve(bannerElement);
-    };
-  }, []);
+  // Função para lidar com o redirecionamento
+  const handleRedirect = (item: string) => {
+    // Aqui você pode definir para onde cada item deve redirecionar
+    switch (item) {
+      case "projetos":
+        router.push("/projects");
+        break;
+      case "colecoes":
+        router.push("/colecoes");
+        break;
+      case "produtos":
+        router.push("/products");
+        break;
+      default:
+        router.push("/");
+    }
+  };
 
   return (
-    <motion.div
-      ref={bannerRef}
-      style={{ scale, rotate }}
-      className="relative  w-full shadow-md  h-screen flex items-center justify-center"
-    >
-      {/* background */}
-      <Image
-        src="/banner-cover-2.jpg"
-        alt="Banner art"
-        fill
-        className="max-w-full max-h-full"
-        objectFit="cover"
-      />
-      {/* logo */}
-      <Image
-        height={400}
-        className="absolute left-0 top-[84px] px-12 h-[80px] w-fit md:left-[56px] md:top-[56px]"
-        width={400}
-        src="/logo/yellow-no-bg.png"
-        alt="Chair"
-      />
-    </motion.div>
+    <div className="relative h-screen min-h-[600px] w-full flex items-center justify-center overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+      {/* Logo - Responsivo */}
+      <div className="absolute top-[5%] left-[5%] sm:top-[10%] sm:left-[5%]">
+        <Image
+          src={"/logo/yellow-no-bg.png"}
+          alt="poraneo-logo"
+          width={200}
+          height={300}
+          className="w-[120px] sm:w-[150px] md:w-[200px]"
+        />
+      </div>
+
+      {/* Background image */}
+      <AnimatePresence mode="wait">
+        {hovered && (
+          <motion.div
+            key={hovered}
+            className="absolute z-0 flex items-center justify-center w-full h-full pointer-events-none"
+          >
+            <div className="relative w-full h-full max-w-[1200px]">
+              <Image
+                src={backgrounds[hovered]}
+                alt={hovered}
+                fill
+                className="object-cover"
+                priority
+              />
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-black/50" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Texts - Responsivo */}
+      <div className="relative z-10 flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-10 text-7xl lg:text-5xl xl:text-6xl lg:font-semibold  text-black dark:text-white px-4">
+        {["projetos", "colecoes", "produtos"].map((item) => (
+          <div
+            key={item}
+            onMouseEnter={() => setHovered(item)}
+            onMouseLeave={() => setHovered(null)}
+            className="cursor-pointer transition-colors duration-300 hover:text-primary text-center"
+            onClick={() => handleRedirect(item)}
+          >
+            {item.charAt(0).toUpperCase() + item.slice(1)}
+          </div>
+        ))}
+      </div>
+    </div>
   );
-}
+};
+
+export default Banner;
