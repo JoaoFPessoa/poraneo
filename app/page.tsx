@@ -4,7 +4,6 @@ import Banner from "./components/Banner";
 import Hero from "./components/Hero";
 import Lenis from "lenis";
 import Footer from "./components/Footer";
-import CTA from "./components/CTA";
 
 export default function Home() {
   const container = useRef(null);
@@ -20,14 +19,8 @@ export default function Home() {
     requestAnimationFrame(raf);
   }, []);
 
-  console.log("ENV SANITY:", {
-    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-    version: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
-  });
-
   return (
-    <div className="overflow-x-hidden bg-black">
+    <div className="overflow-x-hidden ">
       {/* container that tracks scroll */}
       <main ref={container} className="relative">
         <div>
@@ -37,8 +30,7 @@ export default function Home() {
       </main>
 
       {/* container without scroll tracking */}
-      <div className="bg-black">
-        <CTA />
+      <div className="">
         <Footer />
       </div>
     </div>

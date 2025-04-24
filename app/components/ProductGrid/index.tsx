@@ -1,49 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { client } from "@/sanity/lib/client";
+import { Product } from "@/app/products/page";
 
-type Product = {
-  _id: string;
-  name: string;
-  imageUrl: string;
-  description: string;
-  price?: string;
-  slug: { current: string };
-};
+interface Props {
+  products: Product[];
+}
 
-const getProductsQuery = `
-  *[_type == "product"]{
-    _id,
-    name,
-    image,
-    description,
-    "imageUrl": image.asset->url,
-    price,
-    slug
-  }
-`;
-
-const ProductGrid = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const data = await client.fetch(
-        getProductsQuery,
-        {},
-        { next: { revalidate: 30 } }
-      );
-      setProducts(data);
-    };
-
-    fetchProducts();
-  }, []);
-
+const ProductGrid = ({ products }: Props) => {
   return (
     <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
       {products.map((product, index) => (

@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white mt-36 py-12">
+    <footer className="text-gray-800 mt-36 py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand Section */}
           <div className="flex flex-col items-center md:items-start">
             <Image
-              src="/logo/white-no-bg.png"
+              src="/logo/black-no-bg.png"
               width={150}
               height={150}
               alt="logo"
@@ -20,7 +20,7 @@ export default function Footer() {
 
           {/* Quick Links Section */}
           <div className="flex flex-col items-center ">
-            <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-xl font-semibold mb-4">links rápidos</h3>
             <ul className="space-y-2">
               <li>
                 <a
@@ -59,7 +59,7 @@ export default function Footer() {
 
           {/* Social Media Section */}
           <div className="flex flex-col items-center ">
-            <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
+            <h3 className="text-xl font-semibold mb-4">siga-nos</h3>
             <div className="flex space-x-4">
               <a
                 href="#"

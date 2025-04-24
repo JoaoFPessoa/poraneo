@@ -5,12 +5,12 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Sobre", href: "#" },
-    { label: "Projetos", href: "/projects" },
-    { label: "Produtos", href: "/products" },
-    { label: "Contato", href: "#" },
-    { label: "Blog", href: "/blog" },
+    { label: "início", href: "/" },
+    { label: "projetos", href: "/projects" },
+    { label: "coleções", href: "/collections" },
+    { label: "produtos", href: "/products" },
+    { label: "sobre", href: "/about" },
+    { label: "contato", href: "/contact" },
   ];
 
   return (
@@ -24,7 +24,7 @@ const Navbar = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-white  px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:border-b hover:border-gray-100"
+                  className="text-black  px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:border-b hover:border-gray-900"
                 >
                   {item.label}
                 </a>

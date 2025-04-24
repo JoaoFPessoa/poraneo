@@ -45,6 +45,28 @@ const projectsMock: Project[] = [
     category: "expografia",
   },
   {
+    id: "exp-3",
+    title: "Mostra Contemporânea",
+    client: "Instituto Cultural",
+    description:
+      "Mobiliário expositivo criado para destacar obras de arte contemporânea, utilizando madeira cumaru e detalhe em latão envelhecido.",
+    image: "/projects/expo-2-cover.jpg",
+    location: "Rio de Janeiro, RJ",
+    year: "2023",
+    category: "expografia",
+  },
+  {
+    id: "exp-4",
+    title: "Mostra Contemporânea",
+    client: "Instituto Cultural",
+    description:
+      "Mobiliário expositivo criado para destacar obras de arte contemporânea, utilizando madeira cumaru e detalhe em latão envelhecido.",
+    image: "/projects/expo-2-cover.jpg",
+    location: "Rio de Janeiro, RJ",
+    year: "2023",
+    category: "expografia",
+  },
+  {
     id: "arq-1",
     title: "Residência Alto de Pinheiros",
     client: "Cliente Particular",
@@ -79,44 +101,12 @@ export default function ProjectsPage() {
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black">
       <Navbar />
       {/* Header da página */}
-      <header className="relative h-64 md:h-80 overflow-hidden">
-        <div className="absolute inset-0 bg-black/70 z-10" />
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-50"
-          style={{ backgroundImage: "url('/projetos-header.jpg')" }}
-        />
-        <div className="relative z-20 h-full flex flex-col items-center justify-center px-6 text-center">
-          <motion.h1
-            className="text-4xl md:text-5xl font-light tracking-wider mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Nossos Projetos
-          </motion.h1>
-          <motion.div
-            className="w-24 h-px bg-amber-500/70 mb-4"
-            initial={{ width: 0 }}
-            animate={{ width: "6rem" }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          />
-          <motion.p
-            className="max-w-2xl text-gray-300 font-light italic"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            Criações exclusivas que unem arte, funcionalidade e a nobreza da
-            madeira
-          </motion.p>
-        </div>
-      </header>
 
       {/* Navegação entre abas */}
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
+      <div className="mx-auto px-6 py-8">
         <nav className="border-b border-white/10 flex justify-center md:justify-start">
           <div className="flex gap-12">
             <TabButton
@@ -136,7 +126,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* Grid de projetos */}
-      <div className="max-w-7xl mx-auto px-6 pb-24">
+      <div className=" mx-auto px-6 pb-24">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -160,17 +150,17 @@ export default function ProjectsPage() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <p className="text-gray-300 max-w-2xl mx-auto mb-8 font-light">
+          <p className="text-gray-700 max-w-2xl mx-auto mb-8 font-light">
             Interessado em desenvolver um projeto exclusivo com nossa equipe?
           </p>
           <Link
             href="/contato"
-            className="relative overflow-hidden group inline-block px-10 py-4 bg-amber-800/20 backdrop-blur-sm border border-amber-500/40 text-amber-100 text-sm uppercase tracking-widest transition-all duration-500 hover:bg-amber-800/40"
+            className="relative overflow-hidden group inline-block px-10 py-4 bg-amber-800/20 backdrop-blur-sm border border-amber-500/40 text-amber-700 text-sm  tracking-widest transition-all duration-500 hover:bg-amber-800/40"
           >
             <span className="relative z-10 group-hover:text-amber-50 transition-colors duration-300">
-              Solicitar Orçamento
+              entre em contato
             </span>
-            <span className="absolute bottom-0 left-0 w-full h-0 bg-gradient-to-r from-amber-700/40 to-amber-500/40 transition-all duration-500 group-hover:h-full"></span>
+            <span className="absolute bottom-0 left-0 w-full h-0 bg-gradient-to-r from-primary-500/80 to-primary-400/80 transition-all duration-500 group-hover:h-full"></span>
           </Link>
         </motion.div>
       </div>
@@ -189,7 +179,7 @@ const TabButton: React.FC<{
     <button
       onClick={onClick}
       className={`relative pb-4 text-lg tracking-wide font-light transition-colors duration-300 ${
-        isActive ? "text-amber-300" : "text-gray-400 hover:text-gray-200"
+        isActive ? "text-amber-500" : "text-gray-600 hover:text-gray-400"
       }`}
     >
       {children}
@@ -220,29 +210,26 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
     >
       <Link href={`/projects/${project.id}`}>
         <div
-          className="relative overflow-hidden rounded-lg bg-black/20 border border-white/10 shadow-2xl hover:border-amber-500/40 transition-all duration-700"
+          className="relative overflow-hidden h-[600px] bg-white/5 border border-white/10 shadow-xl hover:border-primary transition-all duration-500"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Image Container */}
-          <div className="relative h-80 overflow-hidden">
+          <div className="relative h-full overflow-hidden">
             <Image
               src={project.image || "/placeholder.svg"}
               alt={project.title}
               layout="fill"
               objectFit="cover"
-              className={`transition-all duration-1000 ${
-                isHovered ? "scale-105 brightness-90" : "brightness-100"
+              className={`transition-all duration-700 ${
+                isHovered ? "scale-110 blur-sm" : ""
               }`}
             />
-
-            {/* Overlay */}
             <div
-              className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-500 ${
-                isHovered ? "opacity-80" : "opacity-60"
+              className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-300 ${
+                isHovered ? "opacity-100" : "opacity-60"
               }`}
             />
-
             {/* Local e Ano */}
             <div className="absolute top-6 left-6 right-6 flex justify-between">
               <span className="px-4 py-1.5 bg-black/40 backdrop-blur-md rounded-full text-xs font-medium text-amber-100 uppercase tracking-wider border border-amber-500/20">
@@ -255,7 +242,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
 
             {/* Cliente */}
             <div className="absolute left-6 top-20">
-              <span className="text-gray-300 text-sm font-light">
+              <span className="text-white text-sm font-light">
                 {project.client}
               </span>
             </div>
@@ -263,8 +250,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
             {/* Info do projeto */}
             <div className="absolute bottom-0 left-0 right-0 p-6 transform transition-transform duration-500">
               <div className="relative">
-                <div className="absolute -left-4 top-2 w-1 h-8 bg-gradient-to-b from-amber-300 to-amber-600"></div>
-                <h3 className="text-2xl font-light text-white mb-2 line-clamp-2 tracking-wider pl-1">
+                <h3 className="text-2xl font-bold text-white mb-2 line-clamp-2 tracking-wider pl-1">
                   {project.title}
                 </h3>
               </div>
@@ -277,12 +263,24 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
                 <p className="text-gray-300 line-clamp-3 mb-5 text-sm font-light">
                   {project.description}
                 </p>
-                <div className="relative group overflow-hidden inline-flex items-center gap-3">
-                  <span className="text-amber-300 text-sm uppercase tracking-wider font-light">
-                    Ver Detalhes
-                  </span>
-                  <span className="w-8 h-px bg-amber-400/50 transition-all duration-300 group-hover:w-12"></span>
-                </div>
+                <button className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white px-6 py-2 rounded-full text-sm font-medium transition flex items-center gap-2 w-full justify-center">
+                  <span>Ver detalhes</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 12h14M12 5l7 7-7 7"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>

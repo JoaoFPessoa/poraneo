@@ -1,12 +1,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
-import MainPageNavBar from "../MainPageNavBar";
 
 export default function Hero({}) {
   return (
     <motion.div className="sticky top-0 flex flex-col items-center justify-center bg-[var(--primary)] h-screen pb-[10vh] relative">
-      <MainPageNavBar />
-
       <motion.section
         initial={{ opacity: 0, scale: 0.1 }}
         animate={{ opacity: 1, scale: 1 }}

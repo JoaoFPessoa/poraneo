@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.className} antialiased bg-[var(--background)]`}
+        className={`${outfit.className} !lowercase antialiased bg-[var(--background)]`}
       >
         {children}
       </body>
