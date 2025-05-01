@@ -25,6 +25,11 @@ interface Product {
     };
   };
   description?: string;
+  additionalInfo?: string;
+  collection?: string;
+  technicalDescription?: string;
+  dimensions?: string;
+  specifications?: string;
   extra_images?: {
     _type: "image";
     asset: {
@@ -45,7 +50,7 @@ export default function ProductDetailPage({
   const [product, setProduct] = useState<Product | null>(null);
 
   async function getProductBySlug(slug: string) {
-    const query = `*[_type == "collections" && slug.current == $slug][0]`;
+    const query = `*[_type == "product" && slug.current == $slug][0]`;
     const response = await client.fetch(query, { slug });
     return response;
   }
@@ -79,7 +84,7 @@ export default function ProductDetailPage({
           exit={{ opacity: 0 }}
           className="p-8 border border-white/20 rounded-lg backdrop-blur-lg"
         >
-          Coleção não encontrada
+          Produto não encontrado
         </motion.div>
       </div>
     );
@@ -165,7 +170,7 @@ export default function ProductDetailPage({
             >
               <path
                 d="M12 5V19M12 19L5 12M12 19L19 12"
-                stroke="black"
+                stroke="white"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -267,7 +272,45 @@ export default function ProductDetailPage({
             </div>
           </motion.div>
         </div>
+
+        {/* Seção de Características Destacadas */}
       </main>
+
+      {/* CTA Final */}
+      {/* <div className="relative py-32 mt-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-green-900/20 to-black z-0" />
+        <div
+          className="absolute inset-0 z-0 opacity-30"
+          style={{
+            backgroundImage: `url(${product.image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(12px)",
+          }}
+        />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+              Pronto para transformar seu lar?
+            </h2>
+            <p className="text-xl text-gray-300 mb-10">
+              Entre em contato hoje mesmo e descubra como nossos produtos podem
+              fazer a diferença.
+            </p>
+            <button className="bg-white text-black py-5 px-10 rounded-full text-xl font-bold hover:bg-gray-200 transition inline-flex items-center">
+              <span>Solicitar contato</span>
+              <span className="ml-2 inline-block">→</span>
+            </button>
+          </motion.div>
+        </div>
+      </div> */}
 
       <Footer />
     </div>

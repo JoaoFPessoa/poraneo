@@ -5,27 +5,31 @@ import { useState } from "react";
 import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "@/app/produtos-mobiliarios/page";
+import { Collection } from "@/app/colecoes/page";
 
 interface Props {
-  products: Product[];
+  collections: Collection[];
 }
 
-const ProductGrid = ({ products }: Props) => {
+const CollectionGrid = ({ collections }: Props) => {
   return (
     <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-      {products.map((product, index) => (
-        <ProductCard key={product._id} product={product} index={index} />
+      {collections.map((collection, index) => (
+        <CollectionCard
+          key={collection._id}
+          collection={collection}
+          index={index}
+        />
       ))}
     </div>
   );
 };
 
-const ProductCard = ({
-  product,
+const CollectionCard = ({
+  collection,
   index,
 }: {
-  product: Product;
+  collection: Collection;
   index: number;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -37,7 +41,7 @@ const ProductCard = ({
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group"
     >
-      <Link href={`produtos-mobiliarios/${product.slug.current}`}>
+      <Link href={`colecoes/${collection.slug.current}`}>
         <div
           className="relative overflow-hidden h-[600px] bg-white/5 border border-white/10 shadow-xl hover:border-primary transition-all duration-500"
           onMouseEnter={() => setIsHovered(true)}
@@ -46,8 +50,8 @@ const ProductCard = ({
           {/* Image Container */}
           <div className="relative h-full overflow-hidden">
             <Image
-              src={product.imageUrl || "/placeholder.svg"}
-              alt={product.name}
+              src={collection.imageUrl || "/placeholder.svg"}
+              alt={collection.name}
               layout="fill"
               objectFit="contain"
               className={`transition-all duration-700 ${
@@ -63,9 +67,8 @@ const ProductCard = ({
             {/* Title & Info - Over Image */}
             <div className="absolute bottom-0 left-0 right-0 p-6 transform transition-transform duration-300">
               <h3 className="text-2xl font-bold text-white mb-1 line-clamp-1">
-                {product.name}
+                {collection.name}
               </h3>
-              <p className="text-primary font-bold mb-2">{product.price}</p>
 
               <div
                 className={`overflow-hidden transition-all duration-500 ${
@@ -73,7 +76,7 @@ const ProductCard = ({
                 }`}
               >
                 <p className="text-gray-300 line-clamp-2 mb-4 text-sm">
-                  {product.description}
+                  {collection.description}
                 </p>
                 <button className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white px-6 py-2 rounded-full text-sm font-medium transition flex items-center gap-2 w-full justify-center">
                   <span>Ver detalhes</span>
@@ -102,4 +105,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductGrid;
+export default CollectionGrid;

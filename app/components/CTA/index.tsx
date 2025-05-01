@@ -75,7 +75,7 @@ const CTA = () => {
             </motion.a>
 
             <motion.a
-              href="/products"
+              href="produtos-mobiliarios"
               className="relative group px-10 py-4 bg-transparent border border-white/20 text-white/90 text-sm uppercase tracking-widest transition-all duration-500 hover:border-amber-400/30"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}

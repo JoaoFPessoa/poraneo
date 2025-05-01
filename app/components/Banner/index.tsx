@@ -19,13 +19,13 @@ const Banner = () => {
     // Aqui você pode definir para onde cada item deve redirecionar
     switch (item) {
       case "projetos":
-        router.push("/projects");
+        router.push("/projetos");
         break;
       case "colecoes":
         router.push("/colecoes");
         break;
       case "produtos":
-        router.push("/products");
+        router.push("produtos-mobiliarios");
         break;
       default:
         router.push("/");
@@ -34,17 +34,6 @@ const Banner = () => {
 
   return (
     <div className="relative h-screen min-h-[600px] w-full flex items-center justify-center overflow-hidden bg-neutral-100 dark:bg-neutral-900">
-      {/* Logo - Responsivo */}
-      <div className="absolute top-[5%] left-[5%] sm:top-[10%] sm:left-[5%]">
-        <Image
-          src={"/logo/yellow-no-bg.png"}
-          alt="poraneo-logo"
-          width={200}
-          height={300}
-          className="w-[120px] sm:w-[150px] md:w-[200px]"
-        />
-      </div>
-
       {/* Background image */}
       <AnimatePresence mode="wait">
         {hovered && (
@@ -52,7 +41,7 @@ const Banner = () => {
             key={hovered}
             className="absolute z-0 flex items-center justify-center w-full h-full pointer-events-none"
           >
-            <div className="relative w-full h-full max-w-[1200px]">
+            <div className="relative w-full h-[90%] max-w-[800px]">
               <Image
                 src={backgrounds[hovered]}
                 alt={hovered}

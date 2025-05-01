@@ -7,90 +7,75 @@ import { motion, AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { client } from "@/sanity/lib/client";
 
 // Tipos
 interface Project {
   id: string;
-  title: string;
-  client: string;
+  name: string;
+  slug: { current: string };
   description: string;
-  image: string;
-  location: string;
-  year: string;
-  category: "expografia" | "arquitetura";
+  imageUrl: string;
+  local: string;
+  ano: string;
+  tipo: "expografia" | "arquitetura";
 }
 
-// Dados mockados para os projetos
-const projectsMock: Project[] = [
-  {
-    id: "exp-1",
-    title: "Exposição Madeira Brasileira",
-    client: "Museu de Arte Moderna",
-    description:
-      "Expografia completa com peças em madeiras nobres brasileiras, destacando a riqueza natural do país através de formas orgânicas e acabamentos sofisticados.",
-    image: "/projects/expo-1-cover.jpg",
-    location: "São Paulo, SP",
-    year: "2024",
-    category: "expografia",
-  },
-  {
-    id: "exp-2",
-    title: "Mostra Contemporânea",
-    client: "Instituto Cultural",
-    description:
-      "Mobiliário expositivo criado para destacar obras de arte contemporânea, utilizando madeira cumaru e detalhe em latão envelhecido.",
-    image: "/projects/expo-2-cover.jpg",
-    location: "Rio de Janeiro, RJ",
-    year: "2023",
-    category: "expografia",
-  },
-  {
-    id: "exp-3",
-    title: "Mostra Contemporânea",
-    client: "Instituto Cultural",
-    description:
-      "Mobiliário expositivo criado para destacar obras de arte contemporânea, utilizando madeira cumaru e detalhe em latão envelhecido.",
-    image: "/projects/expo-2-cover.jpg",
-    location: "Rio de Janeiro, RJ",
-    year: "2023",
-    category: "expografia",
-  },
-  {
-    id: "exp-4",
-    title: "Mostra Contemporânea",
-    client: "Instituto Cultural",
-    description:
-      "Mobiliário expositivo criado para destacar obras de arte contemporânea, utilizando madeira cumaru e detalhe em latão envelhecido.",
-    image: "/projects/expo-2-cover.jpg",
-    location: "Rio de Janeiro, RJ",
-    year: "2023",
-    category: "expografia",
-  },
-  {
-    id: "arq-1",
-    title: "Residência Alto de Pinheiros",
-    client: "Cliente Particular",
-    description:
-      "Projeto completo de marcenaria para residência de luxo, incluindo painéis de madeira freijó, mobiliário sob medida e portas pivotantes de 3 metros.",
-    image: "/projects/arch-1-cover.png",
-    location: "São Paulo, SP",
-    year: "2024",
-    category: "arquitetura",
-  },
-];
+const PROJECTS_PER_PAGE = 6;
+
+const getPaginatedProjectsQuery = (start: number, end: number) => `
+  *[_type == "projects"] [${start}...${end}] {
+    _id,
+    name,
+    image,
+    description,
+    local,
+    ano,
+    tipo,
+    "imageUrl": image.asset->url,
+    slug
+  }
+`;
+
+const getTotalProjectsQuery = `
+  count(*[_type == "projects"])
+`;
 
 export default function ProjectsPage() {
   const [activeTab, setActiveTab] = useState<"expografia" | "arquitetura">(
     "expografia"
   );
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+
+  const [projects, setProjects] = useState<Project[]>();
+  const [totalProjects, setTotalProjects] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(totalProjects / PROJECTS_PER_PAGE);
 
   useEffect(() => {
-    // Filtra os projetos baseado na aba ativa
-    setFilteredProjects(
-      projectsMock.filter((project) => project.category === activeTab)
-    );
+    const fetchTotal = async () => {
+      const count = await client.fetch(getTotalProjectsQuery);
+      setTotalProjects(count);
+    };
+    fetchTotal();
+  }, []);
 
+  useEffect(() => {
+    const start = (currentPage - 1) * PROJECTS_PER_PAGE;
+    const end = start + PROJECTS_PER_PAGE;
+
+    const fetchProducts = async () => {
+      const data = await client.fetch(
+        getPaginatedProjectsQuery(start, end),
+        {},
+        { next: { revalidate: 30 } }
+      );
+      setProjects(data);
+    };
+
+    fetchProducts();
+  }, [currentPage]);
+
+  useEffect(() => {
     // Scroll suave
     const lenis = new Lenis();
     function raf(time: number) {
@@ -99,7 +84,7 @@ export default function ProjectsPage() {
     }
     requestAnimationFrame(raf);
   }, [activeTab]);
-
+  console.log(projects, activeTab);
   return (
     <div className="min-h-screen bg-white text-black">
       <Navbar />
@@ -136,12 +121,68 @@ export default function ProjectsPage() {
             transition={{ duration: 0.6 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
           >
-            {filteredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
-            ))}
+            {projects
+              ?.filter((project) => project.tipo === activeTab)
+              .map((project, index) => (
+                <ProjectCard key={project.id} project={project} index={index} />
+              ))}
           </motion.div>
         </AnimatePresence>
+        {/* Pagination */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex justify-center items-center gap-2 mt-16"
+        >
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 transition disabled:opacity-50"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M15 18L9 12L15 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
 
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition ${
+                currentPage === page
+                  ? "bg-primary text-white"
+                  : "bg-white/10 hover:bg-white/20 text-gray-800"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 transition disabled:opacity-50"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9 6L15 12L9 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </motion.div>
         {/* Call to Action */}
         <motion.div
           className="mt-20 text-center"
@@ -164,6 +205,7 @@ export default function ProjectsPage() {
           </Link>
         </motion.div>
       </div>
+
       <Footer />
     </div>
   );
@@ -200,7 +242,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
   index,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  console.log({ project });
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -208,7 +250,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group"
     >
-      <Link href={`/projects/${project.id}`}>
+      <Link href={`/projetos/${project.slug.current}`}>
         <div
           className="relative overflow-hidden h-[600px] bg-white/5 border border-white/10 shadow-xl hover:border-primary transition-all duration-500"
           onMouseEnter={() => setIsHovered(true)}
@@ -217,8 +259,8 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
           {/* Image Container */}
           <div className="relative h-full overflow-hidden">
             <Image
-              src={project.image || "/placeholder.svg"}
-              alt={project.title}
+              src={project.imageUrl || "/placeholder.svg"}
+              alt={project.name}
               layout="fill"
               objectFit="cover"
               className={`transition-all duration-700 ${
@@ -233,17 +275,10 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
             {/* Local e Ano */}
             <div className="absolute top-6 left-6 right-6 flex justify-between">
               <span className="px-4 py-1.5 bg-black/40 backdrop-blur-md rounded-full text-xs font-medium text-amber-100 uppercase tracking-wider border border-amber-500/20">
-                {project.location}
+                {project.local}
               </span>
               <span className="px-4 py-1.5 bg-black/40 backdrop-blur-md rounded-full text-xs font-medium text-white uppercase tracking-wider">
-                {project.year}
-              </span>
-            </div>
-
-            {/* Cliente */}
-            <div className="absolute left-6 top-20">
-              <span className="text-white text-sm font-light">
-                {project.client}
+                {project.ano}
               </span>
             </div>
 
@@ -251,7 +286,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
             <div className="absolute bottom-0 left-0 right-0 p-6 transform transition-transform duration-500">
               <div className="relative">
                 <h3 className="text-2xl font-bold text-white mb-2 line-clamp-2 tracking-wider pl-1">
-                  {project.title}
+                  {project.name}
                 </h3>
               </div>
 

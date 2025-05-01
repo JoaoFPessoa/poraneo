@@ -53,7 +53,7 @@ export function ProductsCard({
       </CardContent>
       <CardFooter className="flex justify-between items-center">
         <span className="text-lg font-bold">{price}</span>
-        <Link href={`/products/${id}`}>
+        <Link href={`produtos-mobiliarios/${id}`}>
           <Button className="hover:bg-black/80 mt-2 bg-black text-white px-4 py-2 rounded">
             Ver Detalhes
           </Button>

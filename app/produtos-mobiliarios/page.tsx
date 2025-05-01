@@ -1,42 +1,44 @@
 "use client";
 
+import ProductGrid from "../components/ProductGrid";
 import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
-import CollectionGrid from "../components/CollectionGrid";
 
-export type Collection = {
+export type Product = {
   _id: string;
   name: string;
   imageUrl: string;
   description: string;
+  price?: string;
   slug: { current: string };
 };
 
-const COLLECTIONS_PER_PAGE = 6;
+const PRODUCTS_PER_PAGE = 6;
 
-const getPaginatedCollectionsQuery = (start: number, end: number) => `
-  *[_type == "collections"] [${start}...${end}] {
+const getPaginatedProductsQuery = (start: number, end: number) => `
+  *[_type == "product"] [${start}...${end}] {
     _id,
     name,
     image,
     description,
     "imageUrl": image.asset->url,
+    price,
     slug
   }
 `;
 
 const getTotalProductsQuery = `
-  count(*[_type == "collections"])
+  count(*[_type == "product"])
 `;
 
-export default function CollectionsPage() {
-  const [products, setProducts] = useState<Collection[]>([]);
+export default function ProductsPage() {
+  const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
 
-  const totalPages = Math.ceil(totalProducts / COLLECTIONS_PER_PAGE);
+  const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 
   useEffect(() => {
     const fetchTotal = async () => {
@@ -47,12 +49,12 @@ export default function CollectionsPage() {
   }, []);
 
   useEffect(() => {
-    const start = (currentPage - 1) * COLLECTIONS_PER_PAGE;
-    const end = start + COLLECTIONS_PER_PAGE;
+    const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    const end = start + PRODUCTS_PER_PAGE;
 
     const fetchProducts = async () => {
       const data = await client.fetch(
-        getPaginatedCollectionsQuery(start, end),
+        getPaginatedProductsQuery(start, end),
         {},
         { next: { revalidate: 30 } }
       );
@@ -67,7 +69,7 @@ export default function CollectionsPage() {
       <Navbar />
 
       <main className="relative z-10 w-[95%] mx-auto py-12">
-        <CollectionGrid collections={products} />
+        <ProductGrid products={products} />
 
         {/* Pagination */}
         <motion.div

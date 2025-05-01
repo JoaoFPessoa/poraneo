@@ -19,10 +19,10 @@ export default function MainPageNavBar() {
             <a href="#">sobre</a>
           </li>
           <li className="hover:font-bold transition-all duration-300">
-            <a href="/projects  ">projetos</a>
+            <a href="/projetos  ">projetos</a>
           </li>
           <li className="hover:font-bold transition-all duration-300">
-            <a href="/products">produtos</a>
+            <a href="produtos-mobiliarios">produtos</a>
           </li>
           <li className="hover:font-bold transition-all duration-300">
             <a href="#">contato</a>
@@ -72,7 +72,7 @@ export default function MainPageNavBar() {
                 <a href="#">Sobre</a>
               </li>
               <li className="hover:scale-105 transition-all duration-300">
-                <a href="/products">Produtos</a>
+                <a href="produtos-mobiliarios">Produtos</a>
               </li>
               <li className="hover:scale-105 transition-all duration-300">
                 <a href="#">Contato</a>

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { productsMock } from "@/data/productsMock";
+import { productsMock } from "@/dataprodutos-mobiliariosMock";
 
 const ProductSection = () => {
   return (

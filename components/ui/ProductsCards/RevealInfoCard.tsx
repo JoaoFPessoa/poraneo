@@ -61,7 +61,7 @@ export function RevealInfoCard({
         {/* Rodapé com preço e botão */}
         <CardFooter className="flex justify-between items-center p-5">
           <span className="text-lg font-bold text-white">{price}</span>
-          <Link href={`/products/${id}`}>
+          <Link href={`produtos-mobiliarios/${id}`}>
             <Button className="hover:bg-black/80 mt-2 bg-black text-white px-4 py-2 rounded">
               Ver Detalhes
             </Button>
