@@ -1,4 +1,4 @@
-import { RevealInfoCard } from "@/components/uiprodutos-mobiliariosCards/RevealInfoCard";
+import { RevealInfoCard } from "@/components/ui/ProductsCards/RevealInfoCard";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
