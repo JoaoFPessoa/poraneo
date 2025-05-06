@@ -18,7 +18,7 @@ export default function ContactPage() {
 
           <div className="space-y-1 text-sm">
             <p className="text-gray-500">dúvidas gerais</p>
-            <p className="font-semibold">work@horizonstudio.work</p>
+            <p className="font-semibold">contato@poraneo.com</p>
             <a
               href="https://wa.me/5511999229517"
               target="_blank"
