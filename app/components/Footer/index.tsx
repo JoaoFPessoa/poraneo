@@ -14,9 +14,6 @@ export default function Footer() {
               height={150}
               alt="logo"
             />
-            <p className="text-gray-400 text-center md:text-left">
-              Elevating your experience with premium quality and innovation.
-            </p>
           </div>
 
           {/* Quick Links Section */}

@@ -1,18 +1,43 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { client } from "@/sanity/lib/client";
+import imageUrlBuilder from "@sanity/image-url";
+
+type BannerData = {
+  projetos: any;
+  colecoes: any;
+  produtos: any;
+};
 
 const Banner = () => {
   const [hovered, setHovered] = useState<string | null>(null);
   const router = useRouter();
+  const [backgrounds, setBackgrounds] = useState<Record<string, string>>({});
 
-  const backgrounds: Record<string, string> = {
-    projetos: "/projects/expo-2-cover.jpg",
-    colecoes: "/carnan-chair/main.jpg",
-    produtos: "/carnan-chair/main.jpg",
-  };
+  const builder = imageUrlBuilder(client);
+  const urlFor = (source: any) => builder.image(source);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data: BannerData = await client.fetch(`*[_type == "banner"][0]{
+        projetos,
+        colecoes,
+        produtos
+      }`);
+      console.log({ data });
+
+      setBackgrounds({
+        projetos: urlFor(data.projetos).url(),
+        colecoes: urlFor(data.colecoes).url(),
+        produtos: urlFor(data.produtos).url(),
+      });
+    };
+    fetchData();
+  }, []);
 
   // Função para lidar com o redirecionamento
   const handleRedirect = (item: string) => {
