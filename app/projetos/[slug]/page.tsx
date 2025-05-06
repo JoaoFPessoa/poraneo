@@ -252,13 +252,6 @@ export default function ProjectDetailPage({
 
               {/* CTA */}
               <div className="pt-6">
-                <h3 className="text-xl font-light tracking-wider mb-4">
-                  Interessado?
-                </h3>
-                <p className="text-black/50 font-light mb-6">
-                  Entre em contato para discutir seu próximo projeto ou tirar
-                  dúvidas sobre nossos serviços.
-                </p>
                 <Link
                   href="/contato"
                   className="relative overflow-hidden group inline-flex items-center gap-3 px-8 py-4 bg-amber-800/80 backdrop-blur-sm border border-amber-500/40 text-amber-100 text-sm tracking-widest transition-all duration-500 hover:bg-amber-800/40"

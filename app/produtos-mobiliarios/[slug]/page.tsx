@@ -127,28 +127,6 @@ export default function ProductDetailPage({
           >
             {product.name}
           </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="mt-8 flex gap-4"
-          >
-            <button className=" text-black py-4 px-8 rounded-full text-xl font-semibold border border-black/10 hover:bg-gray-200 transition group">
-              entre em contato
-              <span className="ml-2 inline-block transition group-hover:translate-x-1">
-                →
-              </span>
-            </button>
-            <button
-              onClick={() =>
-                window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
-              }
-              className="bg-transparent hover:bg-gray-200  border border-black/10 backdrop-blur-sm py-4 px-8 rounded-full text-xl font-semibold  transition"
-            >
-              detalhes
-            </button>
-          </motion.div>
         </motion.div>
 
         <div className="absolute bottom-36 left-0 right-0 z-20 flex justify-center">
@@ -171,6 +149,33 @@ export default function ProductDetailPage({
               <path
                 d="M12 5V19M12 19L5 12M12 19L19 12"
                 stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </motion.div>
+        </div>
+        <div className="absolute bottom-36 left-0 right-0 z-20 flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.5 }}
+            onClick={() =>
+              window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
+            }
+            className="animate-bounce cursor-pointer"
+          >
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 5V19M12 19L5 12M12 19L19 12"
+                stroke="black"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -263,9 +268,11 @@ export default function ProductDetailPage({
 
               <div className="pt-8 mt-8 border-t border-white/10">
                 <div className="flex flex-col gap-4">
-                  <button className="w-fit bg-white text-black py-4 px-8 rounded-lg text-xl font-semibold hover:bg-black/10 transition flex items-center justify-center">
-                    <span>fale conosco</span>
-                    <span className="ml-2 inline-block">→</span>
+                  <button className=" text-black py-4 px-8 rounded-full text-xl font-semibold border border-black/10 transition group">
+                    entre em contato
+                    <span className="ml-2 inline-block transition group-hover:translate-x-1">
+                      →
+                    </span>
                   </button>
                 </div>
               </div>

@@ -28,12 +28,11 @@ const Banner = () => {
         colecoes,
         produtos
       }`);
-      console.log({ data });
 
       setBackgrounds({
-        projetos: urlFor(data.projetos).url(),
-        colecoes: urlFor(data.colecoes).url(),
-        produtos: urlFor(data.produtos).url(),
+        "projetos.": urlFor(data.projetos).url(),
+        "coleções.": urlFor(data.colecoes).url(),
+        "produtos.": urlFor(data.produtos).url(),
       });
     };
     fetchData();
@@ -43,13 +42,13 @@ const Banner = () => {
   const handleRedirect = (item: string) => {
     // Aqui você pode definir para onde cada item deve redirecionar
     switch (item) {
-      case "projetos":
+      case "projetos.":
         router.push("/projetos");
         break;
-      case "colecoes":
+      case "coleções.":
         router.push("/colecoes");
         break;
-      case "produtos":
+      case "produtos.":
         router.push("produtos-mobiliarios");
         break;
       default:
@@ -68,7 +67,7 @@ const Banner = () => {
           >
             <div className="relative w-full h-[90%] max-w-[800px]">
               <Image
-                src={backgrounds[hovered]}
+                src={backgrounds[hovered] || ""}
                 alt={hovered}
                 fill
                 className="object-cover"
@@ -83,7 +82,7 @@ const Banner = () => {
 
       {/* Texts - Responsivo */}
       <div className="relative z-10 flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-10 text-7xl lg:text-5xl xl:text-6xl lg:font-semibold  text-black dark:text-white px-4">
-        {["projetos", "colecoes", "produtos"].map((item) => (
+        {["projetos.", "coleções.", "produtos."].map((item) => (
           <div
             key={item}
             onMouseEnter={() => setHovered(item)}
