@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
+import Footer from "../components/Footer";
 
 export type Product = {
   _id: string;
@@ -127,6 +128,7 @@ export default function ProductsPage() {
           </button>
         </motion.div>
       </main>
+      <Footer />
     </div>
   );
 }

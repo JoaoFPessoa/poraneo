@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 import CollectionGrid from "../components/CollectionGrid";
+import Footer from "../components/Footer";
 
 export type Collection = {
   _id: string;
@@ -125,6 +126,7 @@ export default function CollectionsPage() {
           </button>
         </motion.div>
       </main>
+      <Footer />
     </div>
   );
 }
