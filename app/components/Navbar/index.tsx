@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -10,7 +11,7 @@ const Navbar = () => {
     { label: "coleções", href: "/colecoes" },
     { label: "produtos", href: "/produtos-mobiliarios" },
     { label: "sobre", href: "/about" },
-    { label: "contato", href: "/contact" },
+    { label: "contato", href: "/contato" },
   ];
 
   return (
