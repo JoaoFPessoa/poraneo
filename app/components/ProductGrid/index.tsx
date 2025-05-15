@@ -13,7 +13,7 @@ interface Props {
 
 const ProductGrid = ({ products }: Props) => {
   return (
-    <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+    <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
       {products.map((product, index) => (
         <ProductCard key={product._id} product={product} index={index} />
       ))}
@@ -48,9 +48,11 @@ const ProductCard = ({
             <Image
               src={product.imageUrl || "/placeholder.svg"}
               alt={product.name}
-              layout="fill"
-              objectFit="contain"
-              className={`transition-all duration-700 ${
+              objectFit="cover"
+              width={900}
+              height={800}
+              objectPosition="center"
+              className={`transition-all h-full w-full duration-700 ${
                 isHovered ? "scale-110 blur-sm" : ""
               }`}
             />

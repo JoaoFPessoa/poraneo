@@ -8,6 +8,7 @@ import Lenis from "lenis";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { client } from "@/sanity/lib/client";
+import CTAButton from "@/components/ui/CTAButton";
 
 // Tipos
 interface Project {
@@ -185,7 +186,7 @@ export default function ProjectsPage() {
         </motion.div>
         {/* Call to Action */}
         <motion.div
-          className="mt-20 text-center"
+          className="mt-20 text-center w-fit mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -194,15 +195,7 @@ export default function ProjectsPage() {
           <p className="text-gray-700 max-w-2xl mx-auto mb-8 font-light">
             Interessado em desenvolver um projeto exclusivo com nossa equipe?
           </p>
-          <Link
-            href="/contato"
-            className="relative overflow-hidden group inline-block px-10 py-4 bg-amber-800/20 backdrop-blur-sm border border-amber-500/40 text-amber-700 text-sm  tracking-widest transition-all duration-500 hover:bg-amber-800/40"
-          >
-            <span className="relative z-10 group-hover:text-amber-50 transition-colors duration-300">
-              entre em contato
-            </span>
-            <span className="absolute bottom-0 left-0 w-full h-0 bg-gradient-to-r from-primary-500/80 to-primary-400/80 transition-all duration-500 group-hover:h-full"></span>
-          </Link>
+          <CTAButton />
         </motion.div>
       </div>
 

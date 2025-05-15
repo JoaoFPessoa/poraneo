@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
+import CTAButton from "@/components/ui/CTAButton";
 
 interface Product {
   _id: string;
@@ -206,17 +207,18 @@ export default function ProductDetailPage({
               >
                 <Image
                   src={
-                    allImages[activeImageIndex]
-                      ? (urlFor(allImages[activeImageIndex])
-                          ?.width(550)
-                          .dpr(2)
-                          .height(310)
-                          .quality(100)
-                          .url() ?? "/placeholder.svg")
-                      : "/placeholder.svg"
+                    allImages[activeImageIndex] &&
+                    (urlFor(allImages[activeImageIndex])
+                      ?.width(700)
+                      .dpr(2)
+                      .height(600)
+                      .quality(100)
+                      .url() ??
+                      "/placeholder.svg")
                   }
                   alt={product.name}
-                  layout="fill"
+                  fill
+                  objectPosition="center"
                   objectFit="cover"
                   className="transition hover:scale-105 duration-700"
                   quality={100}
@@ -266,16 +268,7 @@ export default function ProductDetailPage({
                 </p>
               </div>
 
-              <div className="pt-8 mt-8 border-t border-white/10">
-                <div className="flex flex-col gap-4">
-                  <button className=" text-black py-4 px-8 rounded-full text-xl font-semibold border border-black/10 transition group">
-                    entre em contato
-                    <span className="ml-2 inline-block transition group-hover:translate-x-1">
-                      →
-                    </span>
-                  </button>
-                </div>
-              </div>
+              <CTAButton />
             </div>
           </motion.div>
         </div>

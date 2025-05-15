@@ -35,7 +35,7 @@ export default function SobrePage() {
               </p>
               <p className="text-lg leading-relaxed mb-6">
                 materializar ideias através da pesquisa e criar harmonia entre
-                espacialidade, contexto e estética
+                espacialidade, contexto e estética.
               </p>
             </div>
 

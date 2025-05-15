@@ -57,7 +57,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative h-screen min-h-[600px] w-full flex items-center justify-center overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+    <div className="relative h-screen min-h-[600px] w-full flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-900">
       {/* Background image */}
       <AnimatePresence mode="wait">
         {hovered && (
@@ -74,7 +74,7 @@ const Banner = () => {
                 priority
               />
               {/* Dark overlay */}
-              <div className="absolute inset-0 bg-black/50" />
+              <div className="absolute " />
             </div>
           </motion.div>
         )}

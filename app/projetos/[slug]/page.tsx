@@ -9,6 +9,7 @@ import Lenis from "lenis";
 import { client } from "@/sanity/lib/client";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
+import CTAButton from "@/components/ui/CTAButton";
 
 // Tipos
 interface Project {
@@ -251,16 +252,8 @@ export default function ProjectDetailPage({
               </div>
 
               {/* CTA */}
-              <div className="pt-6">
-                <Link
-                  href="/contato"
-                  className="relative overflow-hidden group inline-flex items-center gap-3 px-8 py-4 bg-amber-800/80 backdrop-blur-sm border border-amber-500/40 text-amber-100 text-sm tracking-widest transition-all duration-500 hover:bg-amber-800/40"
-                >
-                  <span className="relative z-10 group-hover:text-amber-50 transition-colors duration-300">
-                    entre em contato
-                  </span>
-                  <span className="absolute bottom-0 left-0 w-full h-0 bg-gradient-to-r from-amber-700/40 to-amber-500/40 transition-all duration-500 group-hover:h-full"></span>
-                </Link>
+              <div>
+                <CTAButton />
               </div>
             </motion.div>
           </div>
