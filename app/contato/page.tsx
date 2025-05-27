@@ -20,12 +20,12 @@ export default function ContactPage() {
             <p className="text-gray-500">dúvidas gerais</p>
             <p className="font-semibold">contato@poraneo.com</p>
             <a
-              href="https://wa.me/5511999229517"
+              href="https://wa.me/5511937219893"
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-blue-600 hover:underline cursor-pointer"
             >
-              +55 11 99922-9517
+              +55 11 93721-9893
             </a>
           </div>
 

@@ -73,8 +73,6 @@ const Banner = () => {
                 className="object-cover"
                 priority
               />
-              {/* Dark overlay */}
-              <div className="absolute " />
             </div>
           </motion.div>
         )}
