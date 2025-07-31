@@ -53,7 +53,7 @@ const CollectionCard = ({
               src={collection.imageUrl || "/placeholder.svg"}
               alt={collection.name}
               layout="fill"
-              objectFit="contain"
+              objectFit="cover"
               className={`transition-all duration-700 ${
                 isHovered ? "scale-110 blur-sm" : ""
               }`}
