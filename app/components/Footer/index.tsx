@@ -72,12 +72,16 @@ export default function Footer() {
           </div>
 
           {/* Social Media Section */}
-          <div className="flex flex-col items-center">
+          <a
+            href="https://www.instagram.com/porane0/"
+            target="_blank"
+            className="flex flex-col items-center"
+          >
             <h3 className="text-xl font-semibold mb-4">siga-nos</h3>
             <div className="flex space-x-4">
-              <Instagram href="https://www.instagram.com/porane0/" />
+              <Instagram />
             </div>
-          </div>
+          </a>
         </div>
 
         {/* Copyright Section */}

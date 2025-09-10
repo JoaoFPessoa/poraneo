@@ -29,9 +29,9 @@ export default function SobrePage() {
             {/* Left Column - Content */}
             <div className=" md:w-1/3">
               <p className="text-lg leading-relaxed mb-6">
-                escritório de arquitetura com foco em soluções através do
-                desenho aplicado em diferentes escalas: arquitetura, mobiliário
-                e expografia.
+                estúdio de arquitetura com foco em soluções através do desenho
+                aplicado em diferentes escalas: arquitetura, mobiliário e
+                expografia.
               </p>
               <p className="text-lg leading-relaxed mb-6">
                 materializar ideias através da pesquisa e criar harmonia entre

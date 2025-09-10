@@ -192,9 +192,6 @@ export default function ProjectsPage() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <p className="text-gray-700 max-w-2xl mx-auto mb-8 font-light">
-            Interessado em desenvolver um projeto exclusivo com nossa equipe?
-          </p>
           <CTAButton />
         </motion.div>
       </div>

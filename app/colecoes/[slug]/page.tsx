@@ -93,7 +93,7 @@ export default function ProductDetailPage({
       <Navbar />
 
       {/* Hero Section com Parallax */}
-      <div className="relative h-screen overflow-hidden">
+      <div className="relative h-[90vh] overflow-hidden">
         <div
           className="absolute inset-0 z-0 opacity-60"
           style={{
