@@ -36,14 +36,14 @@ export default function Footer() {
                   Sobre
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="/produtos"
                   className="text-gray-400 hover:text-black transition-all duration-300"
                 >
                   Produtos
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
                   href="/projetos"
@@ -60,14 +60,14 @@ export default function Footer() {
                   coleções
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="/produtos-mobiliarios"
                   className="text-gray-400 hover:text-black transition-all duration-300"
                 >
                   Produtos
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 

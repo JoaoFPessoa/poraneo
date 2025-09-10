@@ -80,7 +80,7 @@ const Banner = () => {
 
       {/* Texts - Responsivo */}
       <div className="relative z-10 flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-10 text-7xl lg:text-5xl xl:text-6xl  hover:font-bold  text-black dark:text-white px-4">
-        {["projetos.", "coleções.", "produtos."].map((item) => (
+        {["projetos.", "coleções."].map((item) => (
           <div
             key={item}
             onMouseEnter={() => setHovered(item)}

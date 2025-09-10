@@ -1,9 +1,3 @@
-console.log("ENV SANITY:", {
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  version: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
-});
-
 export const apiVersion = "2024-01-01";
 
 export const dataset = assertValue(
