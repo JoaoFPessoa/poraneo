@@ -91,7 +91,9 @@ export default function ProjectDetailPage({
     );
   }
 
-  const allImages = [...(project.extra_images ?? [])].filter(Boolean);
+  const allImages = [...(project.extra_images ?? [])].filter(
+    (img) => img && img.asset && img.asset._ref
+  );
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -178,7 +180,7 @@ export default function ProjectDetailPage({
             </motion.div>
 
             {/* Galeria */}
-            {project.extra_images && (
+            {allImages.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -188,21 +190,23 @@ export default function ProjectDetailPage({
                   Galeria
                 </h3>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
-                  <div
-                    className={`relative aspect-square rounded overflow-hidden cursor-pointer border-2 transition-all duration-300 ${
-                      activeImage === 0
-                        ? "border-amber-500"
-                        : "border-transparent hover:border-amber-500/50"
-                    }`}
-                    onClick={() => setActiveImage(0)}
-                  >
-                    <Image
-                      src={urlFor(project.image)?.url() || ""}
-                      alt="Capa"
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
+                  {project.image?.asset?._ref && (
+                    <div
+                      className={`relative aspect-square rounded overflow-hidden cursor-pointer border-2 transition-all duration-300 ${
+                        activeImage === 0
+                          ? "border-amber-500"
+                          : "border-transparent hover:border-amber-500/50"
+                      }`}
+                      onClick={() => setActiveImage(0)}
+                    >
+                      <Image
+                        src={urlFor(project.image)?.url() || "/placeholder.svg"}
+                        alt="Capa"
+                        layout="fill"
+                        objectFit="cover"
+                      />
+                    </div>
+                  )}
 
                   {allImages.map((img, index) => (
                     <div
