@@ -44,7 +44,7 @@ const getTotalProjectsQuery = `
 
 export default function ProjectsPage() {
   const [activeTab, setActiveTab] = useState<"expografia" | "arquitetura">(
-    "expografia"
+    "arquitetura"
   );
 
   const [projects, setProjects] = useState<Project[]>();
@@ -96,16 +96,16 @@ export default function ProjectsPage() {
         <nav className="border-b border-white/10 flex justify-center md:justify-start">
           <div className="flex gap-12">
             <TabButton
-              isActive={activeTab === "expografia"}
-              onClick={() => setActiveTab("expografia")}
-            >
-              Expografia
-            </TabButton>
-            <TabButton
               isActive={activeTab === "arquitetura"}
               onClick={() => setActiveTab("arquitetura")}
             >
               Arquitetura
+            </TabButton>
+            <TabButton
+              isActive={activeTab === "expografia"}
+              onClick={() => setActiveTab("expografia")}
+            >
+              Expografia
             </TabButton>
           </div>
         </nav>
